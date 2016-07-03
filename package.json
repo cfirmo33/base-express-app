@@ -16,8 +16,7 @@
     "glob": "^6.0.4",
     "sequelize": "^3.5.1",
     "pg": "^4.4.1",
-    "pg-hstore": "2.3.2",
-    "jade": "^1.11.0"
+    "pg-hstore": "2.3.2"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
