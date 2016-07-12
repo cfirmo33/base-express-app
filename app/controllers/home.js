@@ -3,10 +3,10 @@ var express = require('express'),
   db = require('../models');
 
 module.exports = function (app) {
-  app.use('/', router);
+  app.use('/api', router);
 };
 
-router.get('/', function (req, res, next) {
+router.get('/home', function (req, res, next) {
   db.Article.findAll().then(function (articles) {
     res.json(articles);
   });
