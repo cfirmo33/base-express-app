@@ -7,11 +7,15 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
 
+var passport = require('passport');
+var flash = require('connect-flash');
+var session = require('express-session');
+
 module.exports = function (app, config) {
   var env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
-  app.locals.ENV_DEVELOPMENT = env == 'development';
-  
+  app.locals.ENV_DEVELOPMENT = env === 'development';
+
   app.use(logger('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
@@ -22,6 +26,14 @@ module.exports = function (app, config) {
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
+
+  app.use(session({ secret: 'varioxsegredobaum'}));
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(flash());
+
+  require('../config/passport')(passport); // pass passport for configuration
+  require('../app/routes.js')(app, passport);
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
   controllers.forEach(function (controller) {
