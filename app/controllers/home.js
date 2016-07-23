@@ -1,13 +1,12 @@
 var express = require('express'),
   router = express.Router(),
-  db = require('../models');
+  db = require('../models'),
+  auth = require('./../auth/auth.service');
 
-module.exports = function (app) {
-  app.use('/api', router);
-};
-
-router.get('/home', function (req, res, next) {
+router.get('/', function (req, res, next) {
   db.Article.findAll().then(function (articles) {
     res.json(articles);
   });
 });
+
+module.exports = router;
