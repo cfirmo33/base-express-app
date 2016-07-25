@@ -1,18 +1,35 @@
 var express = require('express'),
-  router = express.Router(),
-  passport = require('passport'),
-  db = require('../models');
+router = express.Router(),
+db = require('../models'),
+auth = require('../auth/auth.service');
 
-  router.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/signup', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-    }));
+module.exports = function (passport) {
+  router.post('/signup', function (req, res, next) {
+    passport.authenticate('local-signup', function (err, user, info) {
+        var error = err || info;
+        if (error) {
+          return res.status(401).json({err: error});
+        }
 
-  router.post('/login', passport.authenticate('local-login', {
-      successRedirect : '/profile', // redirect to the secure profile section
-      failureRedirect : '/login', // redirect back to the signup page if there is an error
-      failureFlash : true // allow flash messages
-  }));
+        return res.json({});
+    })(req, res, next);
+  });
 
-  module.exports = router;
+  router.post('/login', function (req, res, next) {
+    passport.authenticate('local-login', function (err, user, info) {
+      var error = err || info;
+      if (error) {
+        return res.status(401).json({err: error});
+      }
+      if (!user) {
+        return res.status(404).json({err: 'Something went wrong'});
+      }
+
+      var token = auth.signToken(user.id, ['ROLE_USER']);
+      return res.json({token: token});
+
+    })(req, res, next);
+  });
+
+  return router;
+};

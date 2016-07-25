@@ -35,7 +35,6 @@ module.exports = function (app, config) {
   }));
 
   app.use(passport.initialize());
-  app.use(passport.session());
   app.use(flash());
 
   require('../config/passport')(passport); // pass passport for configuration
