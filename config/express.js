@@ -17,6 +17,7 @@ module.exports = function (app, config) {
   app.locals.ENV_DEVELOPMENT = env === 'development';
 
   app.use(logger('dev'));
+
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
     extended: true
@@ -27,17 +28,22 @@ module.exports = function (app, config) {
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
 
-  app.use(session({ secret: 'varioxsegredobaum'}));
+  app.use(session({
+    secret: 'varioxsegredobaum',
+    resave: true,
+    saveUninitialized: false
+  }));
+
   app.use(passport.initialize());
-  app.use(passport.session());
   app.use(flash());
 
   require('../config/passport')(passport); // pass passport for configuration
   require('../app/routes.js')(app, passport);
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
+
   controllers.forEach(function (controller) {
-    require(controller)(app);
+    require(controller);
   });
 
   app.use(function (req, res, next) {

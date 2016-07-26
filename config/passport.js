@@ -2,90 +2,88 @@ var LocalStrategy   = require('passport-local').Strategy;
 var db = require('../app/models');
 var User            = db.User;
 
+
+function login(req, email, password, done) {
+  User
+  .findOne({ 'email' :  email })
+  .then(function(user) {
+    if (!user){
+      console.log('No user found.');
+      return done(null, false, {message: 'Invalid user or password'});
+    }
+
+    if (!user.validPassword(password)) {
+      console.log('Oops! Wrong password.');
+      return done(null, false, 'Invalid user or password');
+    }
+
+    console.log('User found, password ok');
+    return done(null, user);
+  })
+
+  .catch(function(err) {
+    return done(err);
+  });
+}
+
+function signup(req, email, password, done) {
+  User
+  .findOne({ where: { email :  email } })
+  .then(function(user) {
+
+    if (user) {
+      // email already taken
+      return done(null, false, 'User already taken');
+    }
+
+    var newUser = User.build({
+      email    : email,
+      password : User.generateHash(password)
+    });
+
+    newUser
+    .save()
+    .then(function() {
+      return done(null, newUser);
+    })
+
+    .catch(function(error) {
+      throw error;
+    });
+  })
+
+  .catch(function(err) {
+    return done(err);
+  });
+}
+
+
 module.exports = function(passport) {
 
+  passport.use('local-signup', new LocalStrategy({
+    usernameField : 'email',
+    passwordField : 'password',
+    passReqToCallback : true
+  }, signup));
+
+  passport.use('local-login', new LocalStrategy({
+    usernameField : 'email',
+    passwordField : 'password',
+    passReqToCallback : true
+  }, login));
+
+
   passport.serializeUser(function(user, done) {
-      console.log('serializeUser');
-      done(null, user.id);
+    done(null, user.id);
   });
 
   passport.deserializeUser(function(id, done) {
-      console.log('deserializeUser');
-      User.findById(id)
-        .then(function(user) {
-          console.log('deserializeUser return ok');
-          done(null, user);
-        })
-        .catch(function(err) {
-          console.log('deserializeUser err: ' + err);
-          done(err, null);
-        });
-  });
-
-  passport.use('local-signup', new LocalStrategy({
-      usernameField : 'email',
-      passwordField : 'password',
-      passReqToCallback : true
-  },
-  function(req, email, password, done) {
-
-  process.nextTick(function() {
-
-    User.findOne({ where: { email :  email } })
-      .then(function(user) {
-        if (user) {
-            console.log('user ja existe');
-            return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-        } else {
-
-          var newUser = User.build({
-            email    : email,
-            password : User.generateHash(password)
-          });
-
-          newUser
-            .save()
-            .then(function() {
-              console.log('return done newUser');
-              return done(null, newUser);
-            })
-            .catch(function(error) {
-              console.log('error: ' + error);
-              throw error;
-            });
-        }
-      })
-      .catch(function(err) {
-        console.log('error: ' + err);
-        return done(err);
-      });
+    User.findById(id)
+    .then(function(user) {
+      done(null, user);
+    })
+    .catch(function(err) {
+      done(err, null);
     });
-  }));
-
-  passport.use('local-login', new LocalStrategy({
-          usernameField : 'email',
-          passwordField : 'password',
-          passReqToCallback : true
-      },
-      function(req, email, password, done) {
-
-        User.findOne({ 'email' :  email })
-          .then(function(user) {
-            if (!user){
-              console.log('No user found.');
-              return done(null, false, req.flash('loginMessage', 'No user found.'));
-            }
-
-            if (!user.validPassword(password)) {
-              console.log('Oops! Wrong password.');
-              return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-            }
-
-            console.log('User found, password ok');
-            return done(null, user);
-          })
-          .catch(function(err) {
-            return done(err);
-          });
-      }));
+  });
 };
