@@ -5,21 +5,27 @@
   .module('app.auth')
   .factory('authInterceptor', authInterceptor);
 
-  authInterceptor.$inject = ['$cookies'];
+  authInterceptor.$inject = ['$cookies', '$rootScope'];
 
-  function authInterceptor($cookies) {
+  function authInterceptor($cookies, $rootScope) {
     return {
-      'request': request
+      'request': request,
+      'responseError': responseError
     };
 
     function request(config) {
-      console.log($cookies.get('token'));
       if (angular.isUndefined($cookies.get('token'))) {
         return config;
       }
-
       config.headers.Authorization = 'Bearer ' + $cookies.get('token');
       return config;
+    }
+
+    function responseError(rejection) {
+      // unauthorized
+      if (rejection.status === 401) {
+        $rootScope.$emit('$unauthorized', rejection);
+      }
     }
   }
 

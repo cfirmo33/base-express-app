@@ -5,9 +5,17 @@
   .module('app.home')
   .controller('HomeController', HomeController);
 
-  function HomeController () {
+  HomeController.$inject = ['authService', '$state', '$http'];
+
+  function HomeController (authService, $state, $http) {
       var vm = this;
-      vm.title = 'Basic Angular Structure';
+      vm.title = 'Home';
+      vm.logout = logout;
+
+      function logout() {
+        authService.logout();
+        $state.go('login');
+      }
   }
 
 })();

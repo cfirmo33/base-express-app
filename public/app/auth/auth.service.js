@@ -33,6 +33,9 @@
 
       function success(response) {
         $cookies.put('token', response.data.token);
+        // temp
+        currentUser.roles = ['ROLE_USER'];
+        
         deferred.resolve(response);
       }
       function error(err) {

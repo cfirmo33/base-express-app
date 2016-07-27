@@ -26,8 +26,9 @@
   function authRun($rootScope, authService, $state) {
     // checks if ser has authority to access desired route
     $rootScope.$on('$stateChangeStart', meetRequirements);
+    $rootScope.$on('$unauthorized', redirectUser);
+
     function meetRequirements(event, nextRoute) {
-      console.log(nextRoute);
       var isAuthenticated = authService.isAuthenticated();
 
       // not logged in
@@ -41,6 +42,14 @@
         // show access denied page
         return;
       }
+    }
+
+    // function called when user token has expired
+    function redirectUser(event, rejection) {
+      // temp
+      alert(rejection.data.message);
+      authService.logout();
+      $state.go('login');
     }
   }
 

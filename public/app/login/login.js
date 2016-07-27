@@ -5,9 +5,9 @@
   .module('app.login')
   .controller('LoginController', LoginController);
 
-  LoginController.$inject = ['authService'];
+  LoginController.$inject = ['authService', '$state'];
 
-  function LoginController (authService) {
+  function LoginController (authService, $state) {
       var vm = this;
       vm.user = {};
 
@@ -18,12 +18,11 @@
         .login(vm.user.email, vm.user.password)
         .then(success, error);
 
-        function success(response) {
-          console.log(response);
+        function success() {
+          $state.go('home');
         }
 
         function error(err) {
-          console.log(err);
           vm.error = err.data.err;
         }
       }
