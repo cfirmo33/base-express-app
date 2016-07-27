@@ -41,6 +41,8 @@
     }
 
     function logout() {
+      $cookies.remove('token');
+      currentUser = {};
     }
 
     function getToken(){
