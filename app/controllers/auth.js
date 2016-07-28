@@ -25,8 +25,8 @@ module.exports = function (passport) {
         return res.status(404).json({err: 'Something went wrong'});
       }
 
-      var token = auth.signToken(user.id, ['ROLE_USER']);
-      return res.json({token: token});
+      var token = auth.signToken(user.id);
+      return res.json({token: token, roles: user.roles});
 
     })(req, res, next);
   });

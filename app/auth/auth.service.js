@@ -1,5 +1,7 @@
+var appConfig = require('../../config/app.config');
+
 var jwt = require('jsonwebtoken');
-var validateJwt = require('express-jwt')({secret: 'my_secret'});
+var validateJwt = require('express-jwt')({secret: appConfig.secret});
 var compose = require('composable-middleware');
 var db = require('../../app/models');
 var User            = db.User;
@@ -33,8 +35,8 @@ function isAuthenticated() {
 }
 
 // creates a token
-function signToken(id, roles) {
-  var token = jwt.sign({id: id, roles: roles}, 'my_secret', {expiresIn: '1 hour'});
+function signToken(id) {
+  var token = jwt.sign({id: id}, appConfig.secret, {expiresIn: '1 hour'});
   return token;
 }
 
