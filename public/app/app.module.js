@@ -6,10 +6,11 @@
      * Core
      */
      'app.core',
-
+     'app.auth',
      /*
      * Application
      */
-     'app.home'
+     'app.home',
+     'app.login'
    ]);
 })();

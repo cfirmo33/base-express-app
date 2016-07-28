@@ -2,21 +2,20 @@
   'use strict';
 
   angular
-    .module('app.home')
+    .module('app.login')
     .config(config);
 
     config.$inject = ['$stateProvider'];
 
     function config($stateProvider) {
       $stateProvider
-      .state('home', {
-          url: '/',
-          roles: ['ROLE_USER'],
+      .state('login', {
+          url: '/login',
           views: {
             'content@': {
-              templateUrl: 'app/home/home.html',
-              controller: 'HomeController',
-              controllerAs: 'homeVm'
+              templateUrl: 'app/login/login.html',
+              controller: 'LoginController',
+              controllerAs: 'loginVm'
             }
           }
         });
