@@ -12,7 +12,13 @@ var config = {
       name: 'express'
     },
     port: process.env.PORT || 3000,
-    db: 'postgres://localhost/express-test'
+    db: 'postgres://localhost/express-test',
+    mailer: {
+      smtp: 'smtp.sample-service.com',
+      userAddress: 'user@sample-service.com',
+      password: '',
+      defaultSenderName: 'Sender Name'
+    }
   },
 
   production: {
@@ -21,7 +27,13 @@ var config = {
       name: 'express'
     },
     port: process.env.PORT || 3000,
-    db: 'postgres://localhost/express-production'
+    db: 'postgres://localhost/express-production',
+    mailer: {
+      smtp: 'smtp.sample-service.com',
+      userAddress: 'user@sample-service.com',
+      password: '',
+      defaultSenderName: 'Sender Name'
+    }
   }
 };
 

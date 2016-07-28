@@ -10,7 +10,13 @@ var development = {
     name: 'express'
   },
   port: process.env.PORT || 3000,
-  db: 'postgres://localhost/express-development'
+  db: 'postgres://localhost/express-development',
+  mailer: {
+    smtp: 'smtp.sample-service.com',
+    userAddress: 'user@sample-service.com',
+    password: '',
+    defaultSenderName: 'Sender Name'
+  }
 };
 
 module.exports = development;
