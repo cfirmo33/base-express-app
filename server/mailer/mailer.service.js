@@ -1,5 +1,5 @@
 var nodemailer = require('nodemailer');
-var mailerConfig = require('../../config/config').mailer;
+var mailerConfig = require('../config/config').mailer;
 
 var smtpUri = 'smtps://' +
   mailerConfig.userAddress + ':' + mailerConfig.password + '@' + mailerConfig.smtp;

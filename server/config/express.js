@@ -38,9 +38,9 @@ module.exports = function (app, config) {
   app.use(flash());
 
   require('../config/passport')(passport); // pass passport for configuration
-  require('../app/routes.js')(app, passport);
+  require('../routes')(app, passport);
 
-  var controllers = glob.sync(config.root + '/app/controllers/*.js');
+  var controllers = glob.sync(config.root + '/server/controllers/*.js');
 
   controllers.forEach(function (controller) {
     require(controller);

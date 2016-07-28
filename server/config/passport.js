@@ -1,5 +1,5 @@
 var LocalStrategy   = require('passport-local').Strategy;
-var db = require('../app/models');
+var db = require('../models');
 var User            = db.User;
 
 

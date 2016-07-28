@@ -1,10 +1,10 @@
 var express = require('express'),
-  config = require('./config/config'),
-  db = require('./app/models');
+  config = require('./server/config/config'),
+  db = require('./server/models');
 
 var app = express();
 
-require('./config/express')(app, config);
+require('./server/config/express')(app, config);
 
 db.sequelize
   .sync()

@@ -1,9 +1,9 @@
-var appConfig = require('../../config/app.config');
+var appConfig = require('../config/app.config');
 
 var jwt = require('jsonwebtoken');
 var validateJwt = require('express-jwt')({secret: appConfig.secret});
 var compose = require('composable-middleware');
-var db = require('../../app/models');
+var db = require('../models');
 var User            = db.User;
 
 // verify jwt and attach user to req

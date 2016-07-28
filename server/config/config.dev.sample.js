@@ -2,7 +2,7 @@
 // Create a new file called config.dev.js and paste these lines.
 
 var path = require('path'),
-    rootPath = path.normalize(__dirname + '/..');
+    rootPath = path.normalize(__dirname + '/../..');
 
 var development = {
   root: rootPath,
