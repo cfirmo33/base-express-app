@@ -5,13 +5,13 @@ var gulp = require('gulp'),
   sass = require('gulp-ruby-sass');
 
 gulp.task('sass', function () {
-  return sass('./public/css/**/*.scss')
-    .pipe(gulp.dest('./public/css'))
+  return sass('./client/css/**/*.scss')
+    .pipe(gulp.dest('./client/css'))
     .pipe(livereload());
 });
 
 gulp.task('watch', function() {
-  gulp.watch('./public/css/*.scss', ['sass']);
+  gulp.watch('./client/css/*.scss', ['sass']);
 });
 
 gulp.task('develop', function () {
