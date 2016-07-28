@@ -1,5 +1,6 @@
 node_modules/
-public/components
-public/bower_components
+client/components
+client/bower_components
 .sass-cache
 config/config.dev.js
+config/app.config.js
