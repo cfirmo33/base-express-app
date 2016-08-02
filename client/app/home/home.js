@@ -9,7 +9,7 @@
 
   function HomeController (authService, $state, $http) {
       var vm = this;
-      vm.title = 'Home';
+      vm.title = 'Navbar';
       vm.logout = logout;
 
       function logout() {

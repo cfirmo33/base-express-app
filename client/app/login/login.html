@@ -1,17 +1,66 @@
-<div>
-  <form ng-submit="loginVm.login()">
-      <div>
-        <input type="text" ng-model="loginVm.user.email" placeholder="Email"/>
+  <div class="login">
+    <div class="login-container">
+      <form name="loginForm" ng-submit="loginVm.login()">
+        <div class="header">
+          <h2>
+            Login
+          </h2>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </span>
+
+            <input type="text"
+            name="email"
+            ng-model="loginVm.user.email"
+            placeholder="Email"
+            class="form-control"
+            required/>
+          </div>
+          <div class="help-block" ng-show="loginForm.email.$touched"
+          ng-messages="loginForm.email.$error">
+          <div ng-message="required">
+            <span class="text-danger">
+              This field is required
+            </span>
+          </div>
+        </div>
       </div>
 
-      <div>
-        <input type="password" ng-model="loginVm.user.password" placeholder="Senha"/>
+      <div class="form-group">
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+          </span>
+          <input type="password"
+          name="password"
+          ng-model="loginVm.user.password"
+          placeholder="Senha"
+          class="form-control"
+          required/>
+        </div>
+        <div class="help-block" ng-show="loginForm.password.$touched"
+        ng-messages="loginForm.password.$error">
+        <div ng-message="required">
+          <span class="text-danger">
+            This field is required
+          </span>
+        </div>
       </div>
+    </div>
 
-      <div ng-show="loginVm.error">
-          {{loginVm.error}}
-      </div>
+    <div class="text-danger" ng-show="loginVm.error">
+      {{loginVm.error}}
+    </div>
 
-      <button type="submit">Login</button>
+    <button type="submit" ng-disabled="loginForm.$invalid"
+    class="btn btn-primary btn-lg btn-login btn-block">
+    Login
+  </button>
   </form>
-</div>
+
+  </div>
+  </div>

@@ -1,31 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="pt-br" ng-app="app">
 <head>
-    <meta charset="UTF-8">
-    <title>Express</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Base App</title>
+
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-    <div ui-view="content"></div>
+  <div ui-view="content">
+  </div>
 
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-cookies//angular-cookies.js"></script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
 
-    <script src="app/app.module.js"></script>
-    <script src="app/core/core.module.js"></script>
-    <script src="app/core/config.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-cookies//angular-cookies.js"></script>
+  <script src="bower_components/angular-messages/angular-messages.js"></script>
 
-    <script src="app/auth/auth.module.js"></script>
-    <script src="app/auth/config.js"></script>
-    <script src="app/auth/auth.service.js"></script>
-    <script src="app/auth/auth.interceptor.js"></script>
+  <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
 
-    <script src="app/login/login.module.js"></script>
-    <script src="app/login/config.route.js"></script>
-    <script src="app/login/login.js"></script>
+  <script src="app/app.module.js"></script>
+  <script src="app/core/core.module.js"></script>
+  <script src="app/core/config.js"></script>
 
-    <script src="app/home/home.module.js"></script>
-    <script src="app/home/config.route.js"></script>
-    <script src="app/home/home.js"></script>
+  <script src="app/auth/auth.module.js"></script>
+  <script src="app/auth/config.js"></script>
+  <script src="app/auth/auth.service.js"></script>
+  <script src="app/auth/auth.interceptor.js"></script>
+
+  <script src="app/login/login.module.js"></script>
+  <script src="app/login/config.route.js"></script>
+  <script src="app/login/login.js"></script>
+
+  <script src="app/home/home.module.js"></script>
+  <script src="app/home/config.route.js"></script>
+  <script src="app/home/home.js"></script>
+
+  <script src="app/dashboard/dashboard.module.js"></script>
+  <script src="app/dashboard/config.route.js"></script>
+  <script src="app/dashboard/dashboard.js"></script>
 </body>
 </html>
