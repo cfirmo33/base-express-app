@@ -19,7 +19,7 @@
         .then(success, error);
 
         function success() {
-          $state.go('home');
+          $state.go('dashboard');
         }
 
         function error(err) {

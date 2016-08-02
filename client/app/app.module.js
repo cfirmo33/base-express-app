@@ -11,6 +11,7 @@
      * Application
      */
      'app.home',
-     'app.login'
+     'app.login',
+     'app.dashboard'
    ]);
 })();

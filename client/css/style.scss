@@ -1,1 +1,20 @@
 @import '../bower_components/bootstrap-sass/assets/stylesheets/bootstrap';
+@import 'variables';
+
+body {
+  background-color: $backgroud;
+}
+
+.login {
+  margin: 120px auto 0;
+  max-width: 500px;
+
+  .header {
+    padding: 30px 0;
+    text-align: center;
+  }
+
+  .btn-login {
+    margin-top: 30px;
+  }
+}

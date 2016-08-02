@@ -10,8 +10,7 @@
     function config($stateProvider) {
       $stateProvider
       .state('home', {
-          url: '/',
-          roles: ['ROLE_USER'],
+          abstract: true,
           views: {
             'content@': {
               templateUrl: 'app/home/home.html',
