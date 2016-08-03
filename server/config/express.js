@@ -11,6 +11,8 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
 
+var appConfig = require('./app.config');
+
 module.exports = function (app, config) {
   var env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
@@ -29,7 +31,7 @@ module.exports = function (app, config) {
   app.use(methodOverride());
 
   app.use(session({
-    secret: 'varioxsegredobaum',
+    secret: appConfig.secret,
     resave: true,
     saveUninitialized: false
   }));
