@@ -5,12 +5,13 @@
   .module('app.auth')
   .factory('authService', authService);
 
-  authService.$inject = ['$q', '$http', '$cookies'];
+  authService.$inject = ['$q', '$http', '$cookies', 'userService'];
 
-  function authService($q, $http, $cookies) {
-    var currentUser = {
-      roles: ['']
-    };
+  function authService($q, $http, $cookies, userService) {
+    var currentUser = {};
+    if (angular.isDefined($cookies.get('token'))) {
+      currentUser = userService.get();
+    }
 
     return {
       login: login,
@@ -33,9 +34,8 @@
 
       function success(response) {
         $cookies.put('token', response.data.token);
-        // temp
-        currentUser.roles = ['ROLE_USER'];
-        
+
+        currentUser = userService.get();
         deferred.resolve(response);
       }
       function error(err) {
@@ -53,11 +53,11 @@
     }
 
     function isAuthenticated() {
-      return angular.isDefined($cookies.get('token'));
+      return angular.isDefined(currentUser.roles);
     }
 
     function hasRole(role) {
-        return currentUser.roles.indexOf(role) >= 0;
+      return currentUser.roles.indexOf(role) >= 0;
     }
 
     function hasAnyRole(roles) {

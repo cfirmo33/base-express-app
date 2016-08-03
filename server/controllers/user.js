@@ -9,6 +9,7 @@ router.get('/me', function (req, res, next) {
     attributes: { exclude: ['password'] }
   })
   .then(function (user) {
+    user.roles = user.roles ? user.roles : [];
     return res.json(user);
   })
   .catch(function (err) {
