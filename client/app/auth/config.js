@@ -32,13 +32,13 @@
       var isAuthenticated = authService.isAuthenticated();
 
       // not logged in
-      if ((nextRoute.authenticade || nextRoute.roles) && !isAuthenticated) {
+      if ((nextRoute.authenticade || nextRoute.role) && !isAuthenticated) {
         // redirect to login page
         $state.go('login');
         return;
       }
       // doesn't have rights to access desired route
-      if((nextRoute.roles && isAuthenticated) && !authService.hasAnyRole(nextRoute.roles)) {
+      if((nextRoute.role && isAuthenticated) && !authService.hasRole(nextRoute.role)) {
         // show access denied page
         return;
       }

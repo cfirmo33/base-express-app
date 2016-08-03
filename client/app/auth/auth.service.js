@@ -18,8 +18,7 @@
       logout: logout,
       getToken: getToken,
       isAuthenticated: isAuthenticated,
-      hasRole: hasRole,
-      hasAnyRole: hasAnyRole
+      hasRole: hasRole
     };
 
     function login(email, password) {
@@ -53,28 +52,13 @@
     }
 
     function isAuthenticated() {
-      return angular.isDefined(currentUser.roles);
+      return angular.isDefined(currentUser.role);
     }
 
     function hasRole(role) {
-      return currentUser.roles.indexOf(role) >= 0;
+      return currentUser.role === role;
     }
 
-    function hasAnyRole(roles) {
-      // can be a string
-      if (typeof roles === 'string') {
-        return hasRole(roles);
-      }
-
-      var hasAnyRole = false;
-      angular.forEach(roles, function (role) {
-        if (currentUser.roles.indexOf(role) >= 0) {
-          hasAnyRole = true;
-        }
-      });
-
-      return hasAnyRole;
-    }
   }
 
 })();

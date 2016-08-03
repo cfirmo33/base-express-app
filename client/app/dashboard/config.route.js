@@ -12,7 +12,7 @@
       .state('dashboard', {
           parent: 'home',
           url: '/dashboard',
-          roles: ['ROLE_USER'],
+          role: 'ROLE_USER',
           templateUrl: 'app/dashboard/dashboard.html',
           controller: 'DashboardController',
           controllerAs: 'dashboardVm'

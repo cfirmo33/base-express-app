@@ -34,6 +34,19 @@ function isAuthenticated() {
   });
 }
 
+function hasRole(requiredRole) {
+  return compose()
+  // first verify if user is authenticated
+  .use(isAuthenticated())
+  .use(function (req, res, next) {
+    if (appConfig.roles.indexOf(req.user.role) >= appConfig.roles.indexOf(requiredRole)) {
+      next();
+    } else {
+      res.send(403);
+    }
+  });
+}
+
 // creates a token
 function signToken(id) {
   var token = jwt.sign({id: id}, appConfig.secret, {expiresIn: '1 hour'});
@@ -41,4 +54,5 @@ function signToken(id) {
 }
 
 module.exports.isAuthenticated = isAuthenticated;
+module.exports.hasRole = hasRole;
 module.exports.signToken = signToken;

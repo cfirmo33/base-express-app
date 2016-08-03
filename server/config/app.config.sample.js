@@ -4,7 +4,7 @@ var config = {
   /**
   * APP USER ROLES
   */
-  roles: ['ROLE_USER', 'ROLE_ADMIN'],
+  roles: ['user', 'admin'],
 
 
   /**
