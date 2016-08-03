@@ -3,6 +3,11 @@
 
   angular
   .module('app.auth', [
-    'ngCookies'
+    'ngCookies',
+    
+    /**
+    * User service
+    */
+    'app.user'
   ]);
 })();
