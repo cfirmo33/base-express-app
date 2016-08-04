@@ -5,9 +5,9 @@
   .module('app.auth')
   .factory('authInterceptor', authInterceptor);
 
-  authInterceptor.$inject = ['$cookies', '$rootScope'];
+  authInterceptor.$inject = ['$cookies', '$rootScope', '$q'];
 
-  function authInterceptor($cookies, $rootScope) {
+  function authInterceptor($cookies, $rootScope, $q) {
     return {
       'request': request,
       'responseError': responseError
@@ -26,6 +26,7 @@
       if (rejection.status === 401) {
         $rootScope.$emit('$unauthorized', rejection);
       }
+      $q.reject(rejection);
     }
   }
 
