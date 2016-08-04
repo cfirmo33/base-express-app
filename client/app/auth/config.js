@@ -29,19 +29,22 @@
     $rootScope.$on('$unauthorized', redirectUser);
 
     function meetRequirements(event, nextRoute) {
-      var isAuthenticated = authService.isAuthenticated();
-
-      // not logged in
-      if ((nextRoute.authenticade || nextRoute.role) && !isAuthenticated) {
-        // redirect to login page
-        $state.go('login');
-        return;
-      }
-      // doesn't have rights to access desired route
-      if((nextRoute.role && isAuthenticated) && !authService.hasRole(nextRoute.role)) {
-        // show access denied page
-        return;
-      }
+      authService.isAuthenticated(function (isAuthenticated) {
+        // not logged in
+        if ((nextRoute.hasOwnProperty('authenticade') || nextRoute.hasOwnProperty('role')) && !isAuthenticated) {
+          // redirect to login page
+          // console.log(isAuthenticated);
+          event.preventDefault();
+          $state.go('login');
+          return;
+        }
+        // doesn't have rights to access desired route
+        if((nextRoute.role && isAuthenticated) && !authService.hasRole(nextRoute.role)) {
+          // show access denied page
+          event.preventDefault();
+          return;
+        }
+      });
     }
 
     // function called when user token has expired

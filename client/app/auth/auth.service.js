@@ -51,8 +51,21 @@
       return $cookies.get('token');
     }
 
-    function isAuthenticated() {
-      return angular.isDefined(currentUser.role);
+    function isAuthenticated(callback) {
+      if (currentUser.hasOwnProperty('$promise')) {
+        currentUser
+        .$promise
+        .then(function () {
+          callback(true);
+        })
+        .catch(function () {
+          callback(false);
+        });
+      } else if (currentUser.hasOwnProperty('role')) {
+        callback(true);
+      } else {
+        callback(false);
+      }
     }
 
     function hasRole(role) {
