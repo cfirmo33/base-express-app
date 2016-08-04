@@ -42,6 +42,7 @@
         if((nextRoute.role && isAuthenticated) && !authService.hasRole(nextRoute.role)) {
           // show access denied page
           event.preventDefault();
+          $state.go('accessdenied');
           return;
         }
       });

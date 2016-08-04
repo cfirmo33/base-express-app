@@ -12,6 +12,7 @@
      */
      'app.home',
      'app.login',
+     'app.accessdenied',
      'app.dashboard'
    ]);
 })();

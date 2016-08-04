@@ -5,7 +5,7 @@ var User            = db.User;
 
 function login(req, email, password, done) {
   User
-  .findOne({ 'email' :  email })
+  .findOne({where: {'email' :  email }})
   .then(function(user) {
     if (!user){
       console.log('No user found.');
